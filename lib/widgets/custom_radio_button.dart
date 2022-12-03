@@ -1,6 +1,7 @@
 import 'package:bloodapp2/core/app_export.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class CustomRadioButton extends StatelessWidget {
   CustomRadioButton(
       {this.shape,

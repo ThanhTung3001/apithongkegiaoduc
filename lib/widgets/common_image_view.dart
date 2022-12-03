@@ -40,6 +40,7 @@ class CommonImageView extends StatelessWidget {
   Widget _buildImageView() {
     if (svgPath != null && svgPath!.isNotEmpty) {
       return Container(
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
         height: height,
         width: width,
         child: SvgPicture.asset(
@@ -59,24 +60,27 @@ class CommonImageView extends StatelessWidget {
         color: color,
       );
     } else if (url != null && url!.isNotEmpty) {
-      return CachedNetworkImage(
-        height: height,
-        width: width,
-        fit: fit,
-        imageUrl: url!,
-        placeholder: (context, url) => Container(
-          height: 30,
-          width: 30,
-          child: LinearProgressIndicator(
-            color: Colors.grey.shade200,
-            backgroundColor: Colors.grey.shade100,
-          ),
-        ),
-        errorWidget: (context, url, error) => Image.asset(
-          placeHolder,
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(8),
+        child: CachedNetworkImage(
           height: height,
           width: width,
           fit: fit,
+          imageUrl: url!,
+          placeholder: (context, url) => Container(
+            height: 30,
+            width: 30,
+            child: LinearProgressIndicator(
+              color: Colors.grey.shade200,
+              backgroundColor: Colors.grey.shade100,
+            ),
+          ),
+          errorWidget: (context, url, error) => Image.asset(
+            placeHolder,
+            height: height,
+            width: width,
+            fit: fit,
+          ),
         ),
       );
     } else if (imagePath != null && imagePath!.isNotEmpty) {

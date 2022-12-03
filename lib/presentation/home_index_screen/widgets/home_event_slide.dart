@@ -1,14 +1,15 @@
 import '../controller/home_index_controller.dart';
-import '../models/slider_ang_di_n_ra_item_model.dart';
+import '../models/slide_event_home.dart';
 import 'package:bloodapp2/core/app_export.dart';
 import 'package:bloodapp2/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
-class SliderAngDiNRaItemWidget extends StatelessWidget {
-  SliderAngDiNRaItemWidget(this.sliderAngDiNRaItemModelObj);
+class SliderNewEvent extends StatelessWidget {
+  SliderNewEvent(this.ModelEventSlideObj);
 
-  SliderAngDiNRaItemModel sliderAngDiNRaItemModelObj;
+  // ignore: non_constant_identifier_names
+  ModelEventSlide ModelEventSlideObj;
 
   var controller = Get.find<HomeIndexController>();
 
@@ -16,15 +17,18 @@ class SliderAngDiNRaItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: AppDecoration.fillBlack9002b.copyWith(
-        borderRadius: BorderRadiusStyle.roundedBorder6,
-      ),
+          borderRadius: BorderRadiusStyle.roundedBorder6,
+          image: DecorationImage(
+            image: NetworkImage(ModelEventSlideObj.path),
+            fit: BoxFit.cover,
+          )),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           CustomButton(
             width: 80,
-            text: "lbl_ang_di_n_ra".tr,
+            text: ModelEventSlideObj.type,
             margin: getMargin(
               left: 8,
               top: 8,
@@ -44,7 +48,7 @@ class SliderAngDiNRaItemWidget extends StatelessWidget {
                 right: 8,
               ),
               child: Text(
-                "lbl_ng_y_20_11_2021".tr,
+                ModelEventSlideObj.time as String,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.left,
                 style: AppStyle.txtBeVietnamProRegular10Gray50,
@@ -61,7 +65,7 @@ class SliderAngDiNRaItemWidget extends StatelessWidget {
                 bottom: 6,
               ),
               child: Text(
-                "msg_ng_y_h_i_hi_n_m_u".tr,
+                ModelEventSlideObj.title as String,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.left,
                 style: AppStyle.txtBeVietnamProSemiBold12,

@@ -1,6 +1,4 @@
-import 'package:bloodapp2/presentation/profile_login_screen/controller/profile_login_controller.dart';
 import 'package:bloodapp2/widgets/text_field.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 
 import 'controller/blooddonation_register_controller.dart';
 import 'package:bloodapp2/core/app_export.dart';
@@ -49,34 +47,36 @@ class BlooddonationRegisterScreen
                     ),
                   ),
                   ElevatedButton(
-                      onPressed: () async {
-                        var result = await controller.register();
-                        if (result) {
-                          Get.toNamed(AppRoutes.blooddonationRegisteredScreen);
-                        } else {
-                          showDialog(
-                              context: context,
-                              builder: (_) => AlertDialog(
-                                      title: Text('Thông báo'),
-                                      content: Text(
-                                          'Đăng ký thất bại, vui lòng thử lại sau ?'),
-                                      actions: [
-                                        OutlinedButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          child: Text("Đóng"),
-                                          style: OutlinedButton.styleFrom(
-                                            side: BorderSide(
-                                              width: 1,
-                                              color: Color(0xffFF576E),
-                                            ),
+                    onPressed: () async {
+                      var result = await controller.register();
+                      if (result) {
+                        Navigator.pop(context);
+                        Get.toNamed(AppRoutes.blooddonationRegisteredScreen);
+                      } else {
+                        showDialog(
+                            context: context,
+                            builder: (_) => AlertDialog(
+                                    title: Text('Thông báo'),
+                                    content: Text(
+                                        'Đăng ký thất bại, vui lòng thử lại sau ?'),
+                                    actions: [
+                                      OutlinedButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text("Đóng"),
+                                        style: OutlinedButton.styleFrom(
+                                          side: BorderSide(
+                                            width: 1,
+                                            color: Color(0xffFF576E),
                                           ),
                                         ),
-                                      ]));
-                        }
-                      },
-                      child: Text("Đồng ý")),
+                                      ),
+                                    ]));
+                      }
+                    },
+                    child: Text("Đồng ý"),
+                  ),
                 ],
               ));
     }

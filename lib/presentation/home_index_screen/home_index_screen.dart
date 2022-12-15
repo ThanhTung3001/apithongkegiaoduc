@@ -1,5 +1,6 @@
 import 'package:bloodapp2/presentation/home_index_screen/models/new_model.dart';
 import 'package:bloodapp2/presentation/home_index_screen/widgets/home_new_screen.dart';
+import 'package:bloodapp2/presentation/profile_index_screen/profile_index_screen.dart';
 import 'package:bloodapp2/presentation/profile_login_screen/controller/profile_login_controller.dart';
 import 'package:bloodapp2/presentation/profile_login_screen/profile_login_screen.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
@@ -795,6 +796,13 @@ class HomeIndexScreen extends GetView<HomeIndexController> {
             } else {
               return LoginScreen();
             }
+          case 2:
+            if (controllerUser.auth.value == true) {
+              return ProfileIndexScreen();
+            } else {
+              return LoginScreen();
+            }
+          //return ProfileIndexScreen();
           default:
             return Center(child: Text("Chức năng không tồn tại"));
         }

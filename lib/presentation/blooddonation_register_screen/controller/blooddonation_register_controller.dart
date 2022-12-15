@@ -12,7 +12,7 @@ class BlooddonationRegisterController extends GetxController
   Rx<TextEditingController> phoneController = TextEditingController().obs;
   Rx<TextEditingController> fullNameController = TextEditingController().obs;
   Rx<TextEditingController> addressController = TextEditingController().obs;
-  Rx<dynamic> bloodGroup = null.obs;
+  Rx<Object> bloodGroup = Object().obs;
 
   Rx<BlooddonationRegisterModel> blooddonationRegisterModelObj =
       BlooddonationRegisterModel().obs;
@@ -51,6 +51,7 @@ class BlooddonationRegisterController extends GetxController
   }
 
   Future<bool> register() async {
+    // change(null, status: RxStatus.loading());
     var user = Get.put(ProfileLoginController());
     UserInfoStored userInfo = user.userObjs.value;
     var userId = (userInfo.user!.id ?? "");
@@ -59,10 +60,18 @@ class BlooddonationRegisterController extends GetxController
       "blood_group": typeGroup.toString(),
       "note": "Hiến máu"
     };
+
     try {
-      await ApiClient().signBlood(data, userInfo.jwt ?? "");
+      var response = await ApiClient().signBlood(data, userInfo.jwt ?? "");
+      // print(response["data"]["id"]);
+      data["id"] = response["data"]["id"];
+      //  change(null, status: RxStatus.success());
+      print(response);
+      bloodGroup(data);
       return true;
     } catch (e) {
+      // change(null, status: RxStatus.error("Lỗi"));
+      printError(info: e.toString());
       return false;
     }
 

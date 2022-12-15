@@ -1,10 +1,10 @@
 import 'dart:convert';
+import 'package:bloodapp2/core/app_export.dart';
 import 'package:bloodapp2/data/models/news_model.dart';
 import 'package:bloodapp2/data/models/user_info_stored_model.dart';
+import 'package:bloodapp2/presentation/profile_login_screen/controller/profile_login_controller.dart';
 import 'package:bloodapp2/presentation/profile_login_screen/models/profile_login_model.dart';
 import 'package:http/http.dart' as http;
-
-import '../../core/constants/constants.dart';
 
 class ApiClient {
   /// The above function is used to get the list of news from the API.
@@ -83,6 +83,27 @@ class ApiClient {
     }
   }
 
+  Future<dynamic> getHistory() async {
+    ProfileLoginController controller = Get.find();
+    var headers = {'Authorization': 'Bearer ${controller.userObjs.value.jwt}'};
+    var request = http.Request(
+        'GET',
+        Uri.parse(
+            '${AppConstants.APP_BASE_URL}/api/registers?populate=*&filters[users_permissions_user][id]=${controller.userObjs.value.user!.id}'));
+
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      var json = await response.stream.bytesToString();
+      return jsonDecode(json);
+    } else {
+      throw Exception(response.reasonPhrase);
+      //print(response.reasonPhrase);
+    }
+  }
+
   Future<dynamic> signBlood(dynamic data, String token) async {
     var headers = {
       'Content-Type': 'application/json',
@@ -110,7 +131,45 @@ class ApiClient {
     try {
       if (response.statusCode == 200) {
         var result = await response.stream.bytesToString();
-        return result;
+        return jsonDecode(result);
+      } else {
+        throw Exception(response.reasonPhrase);
+      }
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  Future<dynamic> cancelSign(dynamic data, String token) async {
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
+    //  print(token);
+    var request = http.Request(
+        'PUT',
+        Uri.parse(
+            '${AppConstants.APP_BASE_URL}/api/registers/${data['id']}?populate=*'));
+    var dataSend = {
+      "data": {
+        "note": data["note"] ?? "",
+        "users_permissions_user": data["user_id"].toString(),
+        "status_register": 5,
+        //  "user_register": "",
+        "blood_group": data["blood_group"] ?? 1
+      }
+    };
+    // print(dataSend);
+    request.body = json.encode(dataSend);
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+    //print(request.body);
+
+    try {
+      if (response.statusCode == 200) {
+        var result = await response.stream.bytesToString();
+        return jsonDecode(result);
       } else {
         throw Exception(response.reasonPhrase);
       }
@@ -119,3 +178,4 @@ class ApiClient {
     }
   }
 }
+//http://localhost:1337/api/registers?populate=%2A&filters[users_permissions_user][id]=1

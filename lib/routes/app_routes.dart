@@ -1,7 +1,7 @@
+import 'package:bloodapp2/presentation/history_sign_screen/binding/history_sign_binding.dart';
+import 'package:bloodapp2/presentation/history_sign_screen/history_sign_screen.dart';
 import 'package:bloodapp2/presentation/home_index_screen/home_index_screen.dart';
 import 'package:bloodapp2/presentation/home_index_screen/binding/home_index_binding.dart';
-import 'package:bloodapp2/presentation/home_newsdetail_screen/home_newsdetail_screen.dart';
-import 'package:bloodapp2/presentation/home_newsdetail_screen/binding/home_newsdetail_binding.dart';
 import 'package:bloodapp2/presentation/home_urgent_screen/home_urgent_screen.dart';
 import 'package:bloodapp2/presentation/home_urgent_screen/binding/home_urgent_binding.dart';
 import 'package:bloodapp2/presentation/home_urgentdetail_screen/home_urgentdetail_screen.dart';
@@ -144,6 +144,13 @@ class AppRoutes {
       page: () => HomeIndexScreen(),
       bindings: [
         HomeIndexBinding(),
+      ],
+    ),
+    GetPage(
+      name: "/history_sign",
+      page: () => HistorySignScreen(),
+      bindings: [
+        HistorySignBinding(),
       ],
     )
   ];

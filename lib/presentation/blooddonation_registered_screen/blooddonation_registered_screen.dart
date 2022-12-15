@@ -1,3 +1,4 @@
+import 'package:bloodapp2/presentation/home_index_screen/home_index_screen.dart';
 import 'package:bloodapp2/presentation/profile_login_screen/controller/profile_login_controller.dart';
 
 import 'controller/blooddonation_registered_controller.dart';
@@ -6,8 +7,9 @@ import 'package:bloodapp2/widgets/custom_switch.dart';
 import 'package:flutter/material.dart';
 
 class BlooddonationRegisteredScreen
-    extends GetWidget<BlooddonationRegisteredController> {
+    extends GetView<BlooddonationRegisteredController> {
   var userController = Get.find<ProfileLoginController>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -235,25 +237,33 @@ class BlooddonationRegisteredScreen
                   ),
                 ),
               ),
-              InkWell(
-                onTap: () {},
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Padding(
-                    padding: getPadding(
-                      left: 20,
-                      top: 32,
-                      right: 20,
-                    ),
+              controller.obx(
+                  (state) => ElevatedButton(
+                        child: Text(
+                            "Huỷ đăng ký thành công, về trang chủ để tiếp tục"),
+                        onPressed: () {
+                          Get.offAll(HomeIndexScreen());
+                        },
+                      ),
+                  onLoading: ElevatedButton(
+                    onPressed: () {},
+                    child: CircularProgressIndicator(),
+                  ),
+                  onEmpty: ElevatedButton(
+                    onPressed: () {
+                      controller.cancelRegister();
+                    },
                     child: Text(
                       "Gỡ đăng ký",
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.left,
-                      style: AppStyle.txtBeVietnamProRegular12RedA400,
+                      //  overflow: TextOverflow.ellipsis,
+                      //  textAlign: TextAlign.left,
+                      // style: AppStyle.txtBeVietnamProRegular12RedA400,
                     ),
                   ),
-                ),
-              ),
+                  onError: ((error) => Text(
+                        error.toString(),
+                        style: AppStyle.txtBeVietnamProRegular12RedA400,
+                      )))
             ],
           ),
         ),

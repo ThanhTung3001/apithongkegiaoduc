@@ -68,7 +68,7 @@ class ApiClient {
   Future<dynamic> getMe(String token) async {
     var headers = {'Authorization': 'Bearer $token'};
     var request = http.Request('GET',
-        Uri.parse('${AppConstants.APP_BASE_URL}/api/users/me?populate=*'));
+        Uri.parse('${AppConstants.APP_BASE_URL}/api/users/me?populate=deep,3'));
 
     request.headers.addAll(headers);
 
@@ -83,13 +83,13 @@ class ApiClient {
     }
   }
 
-  Future<dynamic> getHistory() async {
+  Future<dynamic> getHistory({String type = "FINISHED"}) async {
     ProfileLoginController controller = Get.find();
     var headers = {'Authorization': 'Bearer ${controller.userObjs.value.jwt}'};
     var request = http.Request(
         'GET',
         Uri.parse(
-            '${AppConstants.APP_BASE_URL}/api/registers?populate=*&filters[users_permissions_user][id]=${controller.userObjs.value.user!.id}'));
+            '${AppConstants.APP_BASE_URL}/api/form-signs?populate=deep,3&filters[register][users_permissions_user][id]=${controller.userObjs.value.user!.id}&filters[register][status_register][name]=${type}'));
 
     request.headers.addAll(headers);
 
@@ -97,6 +97,7 @@ class ApiClient {
 
     if (response.statusCode == 200) {
       var json = await response.stream.bytesToString();
+      //    print(json);
       return jsonDecode(json);
     } else {
       throw Exception(response.reasonPhrase);

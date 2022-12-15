@@ -7,6 +7,8 @@ class ProfileIndexScreen extends GetWidget<ProfileLoginController> {
   @override
   Widget build(BuildContext context) {
     var user = controller.userObjs.value;
+    dynamic userImg = controller.user.value;
+    print(userImg["avatar"]["url"]);
     return Scaffold(
         //appBar: AppBar(title: ),
         backgroundColor: ColorConstant.whiteA700,
@@ -64,25 +66,28 @@ class ProfileIndexScreen extends GetWidget<ProfileLoginController> {
                                               alignment: Alignment.bottomRight,
                                               children: [
                                                 Align(
-                                                    alignment: Alignment.center,
-                                                    child: Padding(
-                                                        padding: getPadding(
-                                                            right: 1),
-                                                        child: ClipRRect(
-                                                            borderRadius:
-                                                                BorderRadius.circular(
-                                                                    getHorizontalSize(
-                                                                        47.00)),
-                                                            child: CommonImageView(
-                                                                imagePath:
-                                                                    ImageConstant
-                                                                        .imgEllipse10,
-                                                                height: getSize(
-                                                                    94.00),
-                                                                width: getSize(
-                                                                    94.00),
-                                                                fit: BoxFit
-                                                                    .cover)))),
+                                                  alignment: Alignment.center,
+                                                  child: Padding(
+                                                    padding:
+                                                        getPadding(right: 1),
+                                                    child: ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                                getHorizontalSize(
+                                                                    47.00)),
+                                                        child: CommonImageView(
+                                                            url: userImg[
+                                                                        "avatar"] !=
+                                                                    null
+                                                                ? "${AppConstants.APP_BASE_URL}${userImg["avatar"]["url"]}"
+                                                                : "",
+                                                            height:
+                                                                getSize(94.00),
+                                                            width:
+                                                                getSize(94.00),
+                                                            fit: BoxFit.cover)),
+                                                  ),
+                                                ),
                                                 Align(
                                                     alignment:
                                                         Alignment.bottomRight,

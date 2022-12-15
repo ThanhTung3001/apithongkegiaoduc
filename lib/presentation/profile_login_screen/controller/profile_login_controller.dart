@@ -16,6 +16,7 @@ class ProfileLoginController extends GetxController
   Rx<PayLoadLogin> profileLoginModelObj = PayLoadLogin().obs;
   Rx<UserInfoStored> userObjs = UserInfoStored().obs;
   dynamic userInfo = null;
+  Rx<Object> user = Object().obs;
 
   var auth = false.obs;
 
@@ -52,6 +53,7 @@ class ProfileLoginController extends GetxController
     if (prefs.getString("userInfo") != null) {
       userObjs(UserInfoStored.fromJson(
           jsonDecode(prefs.getString("userInfo").toString())));
+      getUser();
       auth(true);
       // getMe();
     } else {
@@ -76,13 +78,10 @@ class ProfileLoginController extends GetxController
   // }
 
   getUser() async {
-    final prefs = await SharedPreferences.getInstance();
-    var userJson = prefs.getString("userInfo");
-    if (userJson != null) {
-      return UserInfoStored.fromJson(jsonDecode(userJson));
-    } else {
-      return null;
-    }
+    print(userObjs.value.jwt);
+    var rsp = await ApiClient().getMe(userObjs.value.jwt ?? "");
+    //print(rsp);
+    user(rsp);
   }
 
   @override

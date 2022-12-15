@@ -94,7 +94,7 @@ class HomeIndexScreen extends GetView<HomeIndexController> {
         switch (_page.value) {
           case 0:
             return SmartRefresher(
-              header: WaterDropHeader(),
+              // header: WaterDropHeader(),
               onRefresh: _onRefresh,
               onLoading: _onLoading,
               enablePullDown: true,

@@ -6,9 +6,12 @@ class HistorySignController extends GetxController
     with StateMixin<Tuple3<dynamic, dynamic, dynamic>> {
   void fetchData() async {
     try {
-      var response = await ApiClient().getHistory();
-      print(response);
-      change(Tuple3(response, null, null), status: RxStatus.success());
+      var finish = await ApiClient().getHistory();
+      var registed = await ApiClient().getHistory(type: "REGISTER");
+      var cancel = await ApiClient().getHistory(type: "CANCEL");
+      //  print(cancel);
+      // print(response);
+      change(Tuple3(finish, registed, cancel), status: RxStatus.success());
     } catch (e) {
       print(e);
       change(Tuple3(null, null, null), status: RxStatus.error(e.toString()));

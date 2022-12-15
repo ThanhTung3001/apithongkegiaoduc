@@ -1,11 +1,13 @@
 import 'package:bloodapp2/core/utils/size_utils.dart';
 import 'package:bloodapp2/presentation/home_index_screen/models/new_model.dart';
+import 'package:bloodapp2/presentation/home_newsdetail_screen/home_newsdetail_screen.dart';
 import 'package:bloodapp2/routes/app_routes.dart';
 import 'package:bloodapp2/theme/app_style.dart';
 import 'package:bloodapp2/widgets/common_image_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+// ignore: must_be_immutable
 class HomeEventNew extends StatelessWidget {
   HomeEventNew({Key? key, required this.newEventModel}) : super(key: key);
   NewEventModel newEventModel;
@@ -13,7 +15,10 @@ class HomeEventNew extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
-          onTapNewsItem();
+          //  onTapNewsItem();
+          Get.to(HomeNewsdetailScreen(
+            model: newEventModel,
+          ));
         },
         child: Container(
             margin: getMargin(top: 10),
@@ -40,7 +45,8 @@ class HomeEventNew extends StatelessWidget {
                             Container(
                                 width: getHorizontalSize(225.00),
                                 child: Text(newEventModel.title,
-                                    maxLines: null,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
                                     textAlign: TextAlign.left,
                                     style: AppStyle
                                         .txtBeVietnamProSemiBold12Gray800)),
@@ -48,19 +54,21 @@ class HomeEventNew extends StatelessWidget {
                                 alignment: Alignment.center,
                                 child: Container(
                                     width: getHorizontalSize(221.00),
-                                    margin: getMargin(top: 13, right: 3),
+                                    margin: getMargin(top: 8, right: 3),
                                     child: Text(newEventModel.decription,
-                                        maxLines: null,
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
                                         textAlign: TextAlign.left,
                                         style: AppStyle
                                             .txtBeVietnamProRegular12Gray800))),
                             Padding(
-                              padding: getPadding(top: 14, right: 10),
-                              child: Text(newEventModel.lastTimePublic,
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.left,
-                                  style:
-                                      AppStyle.txtBeVietnamProRegular10Gray400),
+                              padding: getPadding(top: 8, right: 10),
+                              child: Text(
+                                newEventModel.lastTimePublic,
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.left,
+                                style: AppStyle.txtBeVietnamProRegular10Gray400,
+                              ),
                             )
                           ]))
                 ])));

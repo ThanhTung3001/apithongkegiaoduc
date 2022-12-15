@@ -2,6 +2,7 @@ import 'package:bloodapp2/core/app_export.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 
+// ignore: must_be_immutable
 class CustomSwitch extends StatelessWidget {
   CustomSwitch({this.alignment, this.margin, this.value, this.onChanged});
 

@@ -42,7 +42,7 @@ final Map<String, String> enUs = {
   "lbl_vi_t_tin_t_c": "Viết tin tức",
   "lbl_forgot": "Forgot ?",
   "msg_auctor_tincidunt":
-      "Auctor tincidunt habitasse diam pellentesque nisl. Amet pharetra eu turpis est sagittis sit tincidunt viverra.",
+      "Cám ơn bạn đã đăng ký hiến máu, chúng tôi sẽ liên hệ bạn sớm !",
   "lbl_b_o": "B, O",
   "lbl": "+",
   "lbl_a": "A+",

@@ -1,221 +1,231 @@
-import 'controller/profile_login_controller.dart';
-import 'package:bloodapp2/core/app_export.dart';
-import 'package:bloodapp2/widgets/custom_button.dart';
-import 'package:bloodapp2/widgets/custom_text_form_field.dart';
+import 'package:bloodapp2/presentation/profile_login_screen/models/profile_login_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-class ProfileLoginScreen extends GetWidget<ProfileLoginController> {
+import 'controller/profile_login_controller.dart';
+
+class LoginScreen extends GetView<ProfileLoginController> {
+  final ProfileLoginController userController =
+      Get.put(ProfileLoginController());
+  TextEditingController username = new TextEditingController();
+  TextEditingController password = new TextEditingController();
+  FocusNode _focus = FocusNode();
+  FocusNode _focus1 = FocusNode();
+  final dataKey = GlobalKey();
+  var forcus = false;
+  bool showPassword = false;
+
+  final profileLoginController = Get.put(ProfileLoginController());
+  _handleLogin(String user, String password) {
+    print("login");
+    profileLoginController.login(
+      PayLoadLogin(identifier: user, password: password),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
-            backgroundColor: ColorConstant.whiteA700,
-            body: Container(
-                width: size.width,
-                child: SingleChildScrollView(
-                    child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                      Align(
-                          alignment: Alignment.centerLeft,
-                          child: Container(
-                              padding: getPadding(
-                                  left: 20, top: 25, right: 20, bottom: 25),
-                              decoration: AppDecoration.txtFillRedA200,
-                              child: Text("lbl_ng_nh_p".tr,
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.left,
-                                  style: AppStyle.txtBeVietnamProSemiBold16))),
-                      Align(
-                          alignment: Alignment.centerLeft,
-                          child: Padding(
-                              padding: getPadding(left: 20, top: 39, right: 20),
-                              child: Text("lbl_email".tr,
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.left,
-                                  style: AppStyle
-                                      .txtBeVietnamProSemiBold12Gray800))),
-                      CustomTextFormField(
-                          width: 335,
-                          focusNode: FocusNode(),
-                          controller: controller.formController,
-                          hintText: "lbl_placeholer".tr,
-                          margin: getMargin(left: 20, top: 6, right: 20)),
-                      Padding(
-                          padding: getPadding(left: 20, top: 29, right: 20),
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Padding(
-                                    padding: getPadding(bottom: 1),
-                                    child: Text("lbl_m_t_kh_u".tr,
-                                        overflow: TextOverflow.ellipsis,
-                                        textAlign: TextAlign.left,
-                                        style: AppStyle
-                                            .txtBeVietnamProSemiBold12Gray800)),
-                                Padding(
-                                    padding: getPadding(top: 1),
-                                    child: Text("lbl_forgot".tr,
-                                        overflow: TextOverflow.ellipsis,
-                                        textAlign: TextAlign.left,
-                                        style: AppStyle
-                                            .txtBeVietnamProRegular12Red300))
-                              ])),
-                      CustomTextFormField(
-                          width: 335,
-                          focusNode: FocusNode(),
-                          controller: controller.formOneController,
-                          hintText: "lbl_placeholer".tr,
-                          margin: getMargin(left: 20, top: 5, right: 20),
-                          textInputAction: TextInputAction.done),
-                      CustomButton(
-                          width: 335,
-                          text: "lbl_ng_nh_p".tr,
-                          margin: getMargin(left: 20, top: 30, right: 20),
-                          onTap: onTapNgnhpOne),
-                      Padding(
-                          padding: getPadding(left: 20, top: 42, right: 20),
-                          child: Text("msg_ch_a_c_t_i_kho_n".tr,
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.left,
-                              style: AppStyle.txtBeVietnamProRegular12RedA400)),
-                      Align(
-                          alignment: Alignment.centerLeft,
-                          child: Container(
-                              height: getVerticalSize(103.00),
-                              width: size.width,
-                              margin: getMargin(top: 309),
-                              child: Stack(
-                                  alignment: Alignment.topCenter,
-                                  children: [
-                                    Align(
-                                        alignment: Alignment.bottomLeft,
-                                        child: Container(
-                                            margin: getMargin(top: 10),
-                                            decoration:
-                                                AppDecoration.outlineGray2001,
-                                            child: Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Padding(
-                                                      padding: getPadding(
-                                                          left: 49,
-                                                          top: 20,
-                                                          bottom: 19),
-                                                      child: CommonImageView(
-                                                          svgPath: ImageConstant
-                                                              .imgIconactivity48x48,
-                                                          height:
-                                                              getSize(48.00),
-                                                          width:
-                                                              getSize(48.00))),
-                                                  Padding(
-                                                      padding: getPadding(
-                                                          left: 179,
-                                                          top: 20,
-                                                          right: 50,
-                                                          bottom: 19),
-                                                      child: CommonImageView(
-                                                          svgPath: ImageConstant
-                                                              .imgIconprofile,
-                                                          height:
-                                                              getSize(48.00),
-                                                          width:
-                                                              getSize(48.00)))
-                                                ]))),
-                                    Align(
-                                        alignment: Alignment.topCenter,
-                                        child: GestureDetector(
-                                            onTap: () {
-                                              onTapIconBlood();
-                                            },
-                                            child: Card(
-                                                clipBehavior: Clip.antiAlias,
-                                                elevation: 0,
-                                                margin: getMargin(
-                                                    left: 147,
-                                                    right: 147,
-                                                    bottom: 10),
-                                                color: ColorConstant.redA400,
-                                                shape: RoundedRectangleBorder(
-                                                    side: BorderSide(
-                                                        color: ColorConstant
-                                                            .whiteA700,
-                                                        width:
-                                                            getHorizontalSize(
-                                                                3.00)),
-                                                    borderRadius:
-                                                        BorderRadiusStyle
-                                                            .circleBorder40),
-                                                child: Container(
-                                                    height: getSize(80.00),
-                                                    width: getSize(80.00),
-                                                    decoration: AppDecoration
-                                                        .outlineWhiteA700
-                                                        .copyWith(
-                                                            borderRadius:
-                                                                BorderRadiusStyle
-                                                                    .circleBorder40),
-                                                    child: Stack(
-                                                        alignment:
-                                                            Alignment.center,
-                                                        children: [
-                                                          Align(
-                                                              alignment:
-                                                                  Alignment
-                                                                      .topLeft,
-                                                              child: Padding(
-                                                                  padding: getPadding(
-                                                                      left: 24,
-                                                                      top: 20,
-                                                                      right: 24,
-                                                                      bottom:
-                                                                          20),
-                                                                  child: Text(
-                                                                      "lbl".tr,
-                                                                      overflow:
-                                                                          TextOverflow
-                                                                              .ellipsis,
-                                                                      textAlign:
-                                                                          TextAlign
-                                                                              .left,
-                                                                      style: AppStyle
-                                                                          .txtRobotoMedium24))),
-                                                          Align(
-                                                              alignment:
-                                                                  Alignment
-                                                                      .center,
-                                                              child: Padding(
-                                                                  padding: getPadding(
-                                                                      left: 26,
-                                                                      top: 20,
-                                                                      right: 26,
-                                                                      bottom:
-                                                                          20),
-                                                                  child: CommonImageView(
-                                                                      svgPath:
-                                                                          ImageConstant
-                                                                              .imgDashboard,
-                                                                      height: getVerticalSize(
-                                                                          40.00),
-                                                                      width: getHorizontalSize(
-                                                                          28.00))))
-                                                        ])))))
-                                  ])))
-                    ])))));
+    return Scaffold(
+        body: Container(
+      decoration: const BoxDecoration(color: Colors.white),
+      child: ListView(
+        children: [
+          SizedBox(
+            height: 30,
+          ),
+          Container(
+            alignment: Alignment.topLeft,
+            margin: EdgeInsets.only(left: 16, right: 16, top: 15, bottom: 16),
+            child: SizedBox(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Blood bank xin chào!",
+                    style: GoogleFonts.aBeeZee(
+                      color: Color(0xffb20000),
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    "Hãy đăng nhập để thực hiện thao tác.",
+                    style: GoogleFonts.mulish(
+                      height: 2,
+                      color: Color.fromARGB(255, 107, 106, 106),
+                      fontSize: 14,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 20,
+            child: Container(),
+          ),
+          SizedBox(
+            child: Container(
+              padding: EdgeInsets.only(
+                left: 16,
+                right: 16,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  TextFormField(
+                    focusNode: _focus1,
+                    key: dataKey,
+                    controller: username,
+                    onTap: () {},
+                    decoration: InputDecoration(
+                      label: Text("Tài khoản"),
+                      prefixIcon: Icon(Icons.account_box_rounded),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.grey,
+                        ),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  TextFormField(
+                    obscureText: !showPassword,
+                    focusNode: _focus,
+                    controller: password,
+                    onTap: () {},
+                    decoration: InputDecoration(
+                        label: const Text("Mật khẩu"),
+                        prefixIcon: Icon(Icons.lock_outline),
+                        suffixIcon: IconButton(
+                          icon: Icon(showPassword == true
+                              ? Icons.visibility
+                              : Icons.visibility_off),
+                          onPressed: () => {},
+                        ),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.grey,
+                          ),
+                          borderRadius: BorderRadius.circular(10.0),
+                        )),
+                  ),
+                  SizedBox(
+                    height: 50,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        TextButton(
+                          onPressed: () {},
+                          child: Text(
+                            "Quên mật khẩu?",
+                            style: TextStyle(
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Container(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        _handleLogin(username.text, password.text);
+                      },
+                      child: controller.obx(
+                        (state) => Text(
+                          "Đăng nhập".toUpperCase(),
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        onEmpty: Text(
+                          "Đăng nhập".toUpperCase(),
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        onLoading: Container(
+                          child: Center(
+                              child: CircularProgressIndicator(
+                            color: Colors.white,
+                          )),
+                          //  height: Get.height,
+                        ),
+                        onError: (error) => Text(error.toString()),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        minimumSize: const Size.fromHeight(50),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+          SizedBox(
+            child: TextButton(
+              onPressed: () {},
+              child: RichText(
+                text: TextSpan(
+                    style: TextStyle(
+                      color: Color(0xffb20000),
+                    ),
+                    text: "Bạn chưa có tài khoản Blood bank?",
+                    children: [
+                      TextSpan(
+                          text: " Đăng ký ngay",
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 21, 130, 218),
+                            decoration: TextDecoration.underline,
+                          ))
+                    ]),
+              ),
+            ),
+          )
+        ],
+      ),
+    ));
   }
+}
 
-  onTapNgnhpOne() {
-    Get.toNamed(AppRoutes.blooddonationRegisterOneScreen);
-  }
+class ButtonLogin extends StatelessWidget {
+  ButtonLogin({Key? key, required this.provider, required this.pathIcon})
+      : super(key: key);
+  String provider;
+  String pathIcon;
 
-  onTapIconBlood() {
-    Get.toNamed(AppRoutes.blooddonationLoginwarningScreen);
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        minimumSize: const Size.fromHeight(50),
+      ),
+      onPressed: () {},
+      child: Container(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            Image.asset(
+              pathIcon,
+              fit: BoxFit.contain,
+            ),
+            SizedBox(width: 8),
+            Text(
+              provider,
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }

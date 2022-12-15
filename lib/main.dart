@@ -1,3 +1,4 @@
+import 'package:bloodapp2/core/utils/color_extensiton.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -19,6 +20,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      theme: ThemeData(
+          primarySwatch: MaterialColor(
+        0xffFF576E,
+        ColorExtension.getSwatch(
+          Color(0xffFF576E),
+        ),
+      )),
       debugShowCheckedModeBanner: false,
       translations: AppLocalization(),
       locale: Get.deviceLocale, //for setting localization strings

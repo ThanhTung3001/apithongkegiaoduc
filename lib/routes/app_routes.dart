@@ -62,13 +62,13 @@ class AppRoutes {
         HomeIndexBinding(),
       ],
     ),
-    GetPage(
-      name: homeNewsdetailScreen,
-      page: () => HomeNewsdetailScreen(),
-      bindings: [
-        HomeNewsdetailBinding(),
-      ],
-    ),
+    // GetPage(
+    //   name: homeNewsdetailScreen,
+    //   page: () => HomeNewsdetailScreen(),
+    //   bindings: [
+    //     HomeNewsdetailBinding(),
+    //   ],
+    // ),
     GetPage(
       name: homeUrgentScreen,
       page: () => HomeUrgentScreen(),
@@ -127,7 +127,7 @@ class AppRoutes {
     ),
     GetPage(
       name: profileLoginScreen,
-      page: () => ProfileLoginScreen(),
+      page: () => LoginScreen(),
       bindings: [
         ProfileLoginBinding(),
       ],
